@@ -6,7 +6,7 @@ from tf.msg import tfMessage
 from ar_track_alvar_msgs.msg import AlvarMarkers, AlvarMarker
 import time
 import numpy as np
-from frames import *
+
 import rospy
 from moveit_msgs.srv import GetPositionIK, GetPositionIKRequest, GetPositionIKResponse
 from geometry_msgs.msg import PoseStamped
@@ -15,9 +15,13 @@ import numpy as np
 from numpy import linalg
 from baxter_interface import gripper as robot_gripper
 import copy
-from make_move import *
 
-boxes_aixs = {}
+#JR import 
+from frames import *
+from make_move import *
+from constant import *
+
+boxes_axis = {}
 tf_dic = {}
 position_relative = []
 board = []
@@ -116,6 +120,9 @@ def keyboard_control(x):
         elif flag=="e":
             break
 
+
+
+
 """Listener"""
 def callback(message):
     for tran in message.transforms:
@@ -135,19 +142,8 @@ def callback(message):
                 tf_dic[key] = [translation, quaternion]
 
     if not tf_dic == {}: 
-        
-        origin = 'right_hand_camera_to_ar_marker_3'
-        wall1 = 'right_hand_camera_to_ar_marker_0'
-        wall2 = 'right_hand_camera_to_ar_marker_1'
-        wall3 = 'right_hand_camera_to_ar_marker_2'
-        wall4 = 'right_hand_camera_to_ar_marker_4'
-        wall5 = 'right_hand_camera_to_ar_marker_5'
-        wall6 = 'right_hand_camera_to_ar_marker_6'
-        box1 = 'right_hand_camera_to_ar_marker_7'
-        box2 = 'right_hand_camera_to_ar_marker_8'
-        
         position_relative = list(map(lambda x : round(abs(x[0] - x[1]), 1), 
-            zip(tf_dic[wall1][0], tf_dic[origin][0])))
+            zip(tf_dic[wall0][0], tf_dic[origin][0])))
 
         create_coordinates(tf_dic)
         board = create_board(tf_dic, board)
@@ -163,38 +159,97 @@ def listener():
     #rospy.spin()
 
 
+
+
+
+
+
 """Board"""
-origin = 'right_hand_camera_to_ar_marker_3'
-wall1 = 'right_hand_camera_to_ar_marker_0'
-wall2 = 'right_hand_camera_to_ar_marker_1'
-wall3 = 'right_hand_camera_to_ar_marker_2'
-wall4 = 'right_hand_camera_to_ar_marker_4'
-wall5 = 'right_hand_camera_to_ar_marker_5'
-wall6 = 'right_hand_camera_to_ar_marker_6'
-box1 = 'right_hand_camera_to_ar_marker_7'
-box2 = 'right_hand_camera_to_ar_marker_8'
-des1 = 'right_hand_camera_to_ar_marker_9'
-des2 = 'right_hand_camera_to_ar_marker_10'
 
 def create_coordinates(tf_dic):
     '''
-    create a dictionary which store the coordinates of 
-    each box, wall, destination.
+    Create a list which store the Pieces storing 
+    coordinates of each box, wall, destination, type and number.
     '''
-    unit_length = abs(tf_dic[origin][0][0] - tf_dic[wall1][0][0])
+    pieces = []
+    for i in range(len(walls)):
+        coordinate = tfdicToCoordinate(tf_dic, walls[i])
+        piece = Piece(coordinate, 'WAL', i)
+        pieces.append(piece)
+    for i in range(len(boxes)):
+        coordinate = tfdicToCoordinate(tf_dic, walls[i])
+        piece = Piece(coordinate, 'BOX', i)
+        pieces.append(piece)
+    for i in range(len(deses)):
+        coordinate = tfdicToCoordinate(tf_dic, walls[i])
+        piece = Piece(coordinate, 'DES', i)
+        pieces.append(piece)
+    return pieces
 
-    for _ in range(len(tf_dic)):
+def tfdicToCoordinate(tf_dic, key):
+    """Return the coordinate of a pieces relative to origin."""
+    return list(map(lambda x : round(abs(x[0] - x[1]), 3), 
+            zip(tf_dic[key][0], tf_dic[origin][0])))
+
+def pieceTolist(pieces):
+    """Pieces type to common coordinates type"""
+    list_pieces = []
+    for p in pieces:
+        list_pieces.append(p.coordinate)
+    return list_pieces
+
+def create_board(tf_dic):
+    """return a new game board."""
+    return update_board(tf_dic, clear_board())
 
 
+def update_board(tf_dic, oldboard):
+    """return a game board in 2D list. acr is the Accuracy"""
+    pieces = create_coordinates(tf_dic)
+    board = oldboard
+    for piece in pieces:
+        unit_cod = CoordinateToUnit(piece.coordinate)
+        x, y = unit_cod[0], unit_cod[1]
+        if piece.type == 'WAL':
+            board[x][y] = '#'
+        elif pieces.type == 'BOX':
+            board[x][y] = '$'
+        elif pieces.type == 'DES':
+            board[x][y] = '.'
+    return board
+
+def CoordinateToUnit(cod):
+    """Return unit coordinate"""
+    _ACR = 3
+    unit = round(abs(tf_dic[origin][0][0] - tf_dic[wall1][0][0]), _ACR)
+    x = round(cod[0] / unit)
+    y = round(cod[1] / unit)
+    return [x, y, 0]
 
 
+def clear_board():
+    """
+    Return a new empty board. With all pieces being WALL.
+    Wall = '#', box = '$'
+    """
+    b = []
+    for i in range(_LENGTH):
+        row = []
+        for j in range(_WIDTH):
+            row.append('#')
+        b.append(row)
+    return b
 
-
-def create_board(tf_dic, oldboard):
-    unit_length = 
-
-
-
+class Piece:
+    """
+    The piece in each position of the board.
+    type is 'WAL', 'BOX', 'DES'
+    number is the number
+    """
+    def __init__(self, coordinate, _type, number=-1):
+        self.coordinate = coordinate
+        self.type = _type
+        self.number = number
 
 if __name__ == '__main__':  
     while True:

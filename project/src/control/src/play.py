@@ -17,7 +17,7 @@ from baxter_interface import gripper as robot_gripper
 import copy
 from make_move import *
 
-boxes_axis = {}
+boxes_aixs = {}
 tf_dic = {}
 position_relative = []
 board = []
@@ -170,7 +170,6 @@ wall2 = 'right_hand_camera_to_ar_marker_1'
 wall3 = 'right_hand_camera_to_ar_marker_2'
 wall4 = 'right_hand_camera_to_ar_marker_4'
 wall5 = 'right_hand_camera_to_ar_marker_5'
-
 wall6 = 'right_hand_camera_to_ar_marker_6'
 box1 = 'right_hand_camera_to_ar_marker_7'
 box2 = 'right_hand_camera_to_ar_marker_8'
@@ -182,12 +181,9 @@ def create_coordinates(tf_dic):
     create a dictionary which store the coordinates of 
     each box, wall, destination.
     '''
-    unit_length = round(abs(tf_dic[origin][0][0] - tf_dic[wall1][0][0]), 3)
-    pieces = []
+    unit_length = abs(tf_dic[origin][0][0] - tf_dic[wall1][0][0])
+
     for _ in range(len(tf_dic)):
-        coordinate = list(map(lambda x : round(abs(x[0] - x[1]), 3), 
-            zip(tf_dic[wall1][0], tf_dic[origin][0])))
-        pieces
 
 
 
@@ -197,14 +193,7 @@ def create_coordinates(tf_dic):
 def create_board(tf_dic, oldboard):
     unit_length = 
 
-class Piece:
-    """
-    The piece in each position of the board.
-    """
-    def __init__(self, coordinate, type, number=0):
-        self.coordinate = coordinate
-        self.type = type
-        self.number = number
+
 
 
 if __name__ == '__main__':  

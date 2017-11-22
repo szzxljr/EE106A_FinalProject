@@ -1,5 +1,4 @@
 import numpy as np
-from play import board
 
 split = 10
 
@@ -50,7 +49,12 @@ def make_single_move(pose):
         group.go()
         print "in"
         print  x
-        print board
         print "out"
     except rospy.ServiceException, e:
         print "Service call failed: %s"%e
+
+
+
+
+    
+

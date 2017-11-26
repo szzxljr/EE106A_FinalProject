@@ -19,7 +19,6 @@ import copy
 dic = {}
 position_relative = []
 
-
 class a():
     num = 0
 
@@ -37,7 +36,7 @@ def keyboard_control(x):
     
     global step 
     step = 0
-    mov1 = [0.10, 0.20, 0.00,0.783, -0.621, 0.042, -0.004]
+    mov1 = [0.10, 0.20, 0.05,0.783, -0.621, 0.042, -0.004]
     #0.995, 0.034, 0.067, 0.059
     # mov2 = [0.1, 0, 0.15,0.036, 0.997, -0.062, 0.009]
     # mov3 = [0.1, -0.1, 0.15,0.036, 0.997, -0.062, 0.009]
@@ -97,8 +96,12 @@ def keyboard_control(x):
 
         flag = raw_input()
         if flag== 's':
-            next_mov = mov1
+            next_mov = copy.copy(mov1)
+            print next_mov
+            # print pose
+            # print "s"
             next_mov[0] += 0.1
+            # print pose
             if next_mov[0]==x[0] and next_mov[1]==x[1]:
                 print "warning!"
                 next_mov[0] -= 0.1
@@ -107,8 +110,11 @@ def keyboard_control(x):
                 pose.append(next_mov)
                 step += 1
         elif flag == 'w':
-            next_mov = mov1
+            print pose
+            print "w"
+            next_mov = copy.copy(mov1)
             next_mov[0] -= 0.1
+            print pose
             if next_mov[0]==x[0] and next_mov[1]==x[1] :
                 print "warning!"
                 next_mov[0] += 0.1
@@ -116,7 +122,7 @@ def keyboard_control(x):
                 pose.append(next_mov)
                 step += 1
         elif flag == 'a':
-            next_mov = mov1
+            next_mov = copy.copy(mov1)
             next_mov[1] -= 0.1
             if next_mov[0]==x[0] and next_mov[1]==x[1] :
                 print "warning!"
@@ -125,7 +131,7 @@ def keyboard_control(x):
                 pose.append(next_mov)
                 step += 1
         elif flag == 'd':
-            next_mov = mov1
+            next_mov = copy.copy(mov1)
             next_mov[1] += 0.1
             if next_mov[0]==x[0] and next_mov[1]==x[1] :
                 print "warning!"
@@ -183,13 +189,11 @@ def callback(message):
         key3 = 'right_hand_camera_to_ar_marker_3'
         key5 = 'right_hand_camera_to_ar_marker_5'
         
-        position_relative = list(map(lambda x : round(x[0] - x[1], 1), 
+        position_relative = list(map(lambda x : round(abs(x[0] - x[1]), 1), 
             zip(dic[key5][0], dic[key3][0])))
         #print "OK"
         #print position_relative
         obj.num = position_relative
-        obj.num[0] = -obj.num[0]
-        obj.num[1] = -obj.num[1]
         #print obj.num
 
 

@@ -9,7 +9,10 @@ arframes = ["ar_marker_3",
 			"ar_marker_5",
 			"ar_marker_6",
 			"ar_marker_7",
-			"ar_marker_8",]
+			"ar_marker_8",
+			"ar_marker_9",
+			"ar_marker_10",
+			"ar_marker_11",]
 
 # for i in range(1, 10):
 # 	arframes += [ar + str(i)]

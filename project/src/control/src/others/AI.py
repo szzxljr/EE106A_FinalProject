@@ -1,9 +1,16 @@
 import numpy as np
+#from map_to_matrix import mapTomatrix
 
 b = [['.1', '#', '-', '.2'],
      ['-', '-', '-', '@'],
      ['#', '#', '-', '#'],
      ['$2', '-', '-', '$1']]
+
+b = [['#', '#', '@', '#'], 
+    ['#', '#', '-', '.2'], 
+    ['$1', '-', '-', '-'], 
+    ['#', '$2', '.1', '#']]
+
 
 lenx = len(b)
 leny = len(b[0])
@@ -90,11 +97,7 @@ def findposition(pieces):
             if b[x][y] == pieces:
                 return (x, y)
 
-def findall():
-    allpaths = findstart1() + findbox1() + findstart2() + findbox2()
-    print(allpaths)
-    for p in allpaths:
-        print(p)
+
 
 def findbox1():
     global paths
@@ -144,6 +147,12 @@ def findstart2():
     paths = []
     b[pd[0]][pd[1]] = BOX2
     return ps
+
+def findall():
+    allpaths = findstart1() + findbox1() + findstart2() + findbox2()
+    print(allpaths)
+    for p in allpaths:
+        print(p)
 
 #print(find(b, 1, 2, 1, 1))
 findall()

@@ -44,7 +44,8 @@ def callback(message):
                 # print dic[key]
                 # print "test1"
     if not dic == {}: 
-        position_relative=[[],[],[],[],[],[],[],[],[]]
+        position_relative=[[],[],[],[],[],[],[],[],[],[],[],[]]
+        
         #position_relative = []
         key0 = "usb_cam_to_ar_marker_0"
         key1 = "usb_cam_to_ar_marker_1"
@@ -55,6 +56,9 @@ def callback(message):
         key6 = "usb_cam_to_ar_marker_6"
         key7 = "usb_cam_to_ar_marker_7"
         key8 = "usb_cam_to_ar_marker_8"
+        key9 = "usb_cam_to_ar_marker_9"
+        key10 = "usb_cam_to_ar_marker_10"
+        key11 = "usb_cam_to_ar_marker_11"
         def position(x):
         	return round(abs(x[0]-x[1]),3)
         position_relative[0] = map(position, zip(dic[key0][0], dic[key0][0]))
@@ -66,7 +70,10 @@ def callback(message):
         position_relative[6] = map(position, zip(dic[key6][0], dic[key0][0]))
         position_relative[7] = map(position, zip(dic[key7][0], dic[key0][0]))
         position_relative[8] = map(position, zip(dic[key8][0], dic[key0][0]))
-
+        position_relative[9] = map(position, zip(dic[key9][0], dic[key0][0]))
+        position_relative[10] = map(position, zip(dic[key10][0], dic[key0][0]))
+        position_relative[11] = map(position, zip(dic[key11][0], dic[key0][0]))
+        
 
         game_map = [['-','-','-','-'],['-','-','-','-'],['-','-','-','-'],['-','-','-','-']]
         unit_length = position_relative[1][0]-position_relative[0][0]
@@ -83,38 +90,46 @@ def callback(message):
         		return "cube out of the map"
         print unit_length
 
-        for i in range(0,9):
-        	for j in range(0,3):
-        		position_relative[i][j] = position_relative_unit(position_relative[i][j])
-        		for k in range(0,4):
-        			if position_relative[i][j] == k*unit_length:
+        for i in range(12):
+            for j in range(3):
+                position_relative[i][j] = position_relative_unit(position_relative[i][j])
+                for k in range(0,4):
+                    if position_relative[i][j] == k*unit_length:
         				position_relative[i][j] = k
 
         #print game_map
         #print position_relative
         
-        cube1 = position_relative[7]
-        cube2 = position_relative[8]
-        des1 = position_relative[5]
-        des2 = position_relative[6]
+
         box0 = position_relative[0]
         box1 = position_relative[1]
         box2 = position_relative[2]
         box3 = position_relative[3]
         box4 = position_relative[4]
+        box5 = position_relative[5]
+        box6 = position_relative[6]
+        cube1 = position_relative[7]
+        cube2 = position_relative[8]
+        des1 = position_relative[9]
+        des2 = position_relative[10]
+        man = position_relative[11]
         game_map[cube1[1]][cube1[0]] = "$1"
-        game_map[cube2[1]][cube2[0]] = "$2"
+        game_map[cube2[1]][cube2[0]] = "$2"  
+        game_map[box0[1]][box0[0]] = "#"
+        game_map[box1[1]][box1[0]] = "#"
+        game_map[box2[1]][box2[0]] = "#"
+        game_map[box3[1]][box3[0]] = "#"
+        game_map[box4[1]][box4[0]] = "#"
+        game_map[box5[1]][box5[0]] = "#"
+        game_map[box6[1]][box6[0]] = "#"
         game_map[des1[1]][des1[0]] = ".1"
         game_map[des2[1]][des2[0]] = ".2"
-        game_map[box0[1]][box0[0]] = "#0"
-        game_map[box1[1]][box1[0]] = "#1"
-        game_map[box2[1]][box2[0]] = "#2"
-        game_map[box3[1]][box3[0]] = "#3"
-        game_map[box4[1]][box4[0]] = "#4"
+        game_map[man[1]][man[0]] = "@"
+
         data = os.path.getsize('map.txt')
         #print data
         # print game_map
-        for p in range(0,4):
+        for p in range(4):
         	for q in range(4):
         		if data == 0:
         			map_file = open("map.txt","a")

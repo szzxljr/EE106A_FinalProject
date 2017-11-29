@@ -21,9 +21,6 @@ class a():
 obj = a() 
 
 def callback(message):
-    
-     
-
     # print obj.num
     for tran in message.transforms:
         head = tran.header.frame_id
@@ -43,6 +40,7 @@ def callback(message):
                 dic[key] = [translation, quaternion]
                 # print dic[key]
                 # print "test1"
+	
     if not dic == {}: 
         position_relative=[[],[],[],[],[],[],[],[],[],[],[],[]]
         
@@ -96,11 +94,8 @@ def callback(message):
                 for k in range(0,4):
                     if position_relative[i][j] == k*unit_length:
         				position_relative[i][j] = k
-
         #print game_map
         #print position_relative
-        
-
         box0 = position_relative[0]
         box1 = position_relative[1]
         box2 = position_relative[2]
@@ -125,10 +120,13 @@ def callback(message):
         game_map[des1[1]][des1[0]] = ".1"
         game_map[des2[1]][des2[0]] = ".2"
         game_map[man[1]][man[0]] = "@"
-
         data = os.path.getsize('map.txt')
         #print data
         # print game_map
+        # if data != 0:
+        f = open('map.txt','r+')
+        f.truncate()
+        f.close()
         for p in range(4):
         	for q in range(4):
         		if data == 0:
@@ -136,21 +134,6 @@ def callback(message):
         			map_file.write(str(game_map[p][q]))
         			map_file.write('\n')
         			map_file.close()
-        		
-
-
-        # for i in range(4):
-        # 	final_map[i] = 
-        # 	print final_map[i]
-
-
-
-
-        	
-
-        # for k in range(0,9):
-        # 	print position_relative[k]
-       
         
 
 def listener():

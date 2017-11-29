@@ -1,6 +1,8 @@
-target_transforms_pairs = []
-usb_cam = "usb_cam"
-# ar = "ar_marker_"
+
+"""
+3 is origin
+11 is gripper position
+"""
 arframes = ["ar_marker_3",
 			"ar_marker_0",
 			"ar_marker_1",
@@ -13,23 +15,13 @@ arframes = ["ar_marker_3",
 			"ar_marker_9",
 			"ar_marker_10",
 			"ar_marker_11",]
-
-# for i in range(1, 10):
-# 	arframes += [ar + str(i)]
-
+target_transforms_pairs = []
+usb_cam = "usb_cam"
 for arframe in arframes:
     target_transforms_pairs += [[usb_cam, arframe]]
 
 """
-base_frame_to_left_hand_camera = [["base", "left_hand_camera"]]
-target_transforms_pairs += base_frame_to_left_hand_camera
-
-
-left_hand_to_camera = [["left_hand", "left_hand_camera"]]
-target_transforms_pairs += left_hand_to_camera
-
-
-target_transforms_pairs += [["left_hand", "left_gripper_mass"]]
+ar = "ar_marker_"
+for i in range(1, 10):
+	arframes += [ar + str(i)]
 """
-print target_transforms_pairs
-

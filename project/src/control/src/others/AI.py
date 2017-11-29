@@ -1,5 +1,5 @@
 import numpy as np
-#from map_to_matrix import mapTomatrix
+from map_to_matrix import mapTomatrix
 
 b = [['.1', '#', '-', '.2'],
      ['-', '-', '-', '@'],
@@ -134,7 +134,6 @@ def findstart1():
     b[pd[0]][pd[1]] = BOX1
     return ps
 
-
 def findstart2():
     global paths
     p0 = findposition(DES1)
@@ -149,13 +148,24 @@ def findstart2():
     return ps
 
 def findall():
-    allpaths = findstart1() + findbox1() + findstart2() + findbox2()
+    allpaths = findstart1() + findbox1() + findstart2() + findbox2() 
+    end = ['empty', allpaths[-1][1], allpaths[-1][1]]
+    allpaths.append(end)
+    """
     print(allpaths)
     for p in allpaths:
         print(p)
+    """
+    return allpaths
+
+def search():
+    global b
+    b = mapTomatrix()
+    return findall()
 
 #print(find(b, 1, 2, 1, 1))
-findall()
+#findall()
+print search()
 
 #[['empty', (1, 3), (1, 2)], ['empty', (1, 2), (3, 2)], ['empty', (3, 2), (3, 3)], ['box1', (3, 3), (3, 2)], ['box1', (3, 2), (1, 2)], ['box1', (1, 2), (1, 0)], ['box1', (1, 0), (0, 0)], ['empty', (0, 0), (1, 0)], ['empty', (1, 0), (1, 2)], ['empty', (1, 2), (3, 2)], ['empty', (3, 2), (3, 0)], ['box2', (3, 0), (3, 2)], ['box2', (3, 2), (0, 2)], ['box2', (0, 2), (0, 3)]]
 

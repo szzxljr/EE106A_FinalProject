@@ -7,6 +7,7 @@ import numpy as np
 from numpy import linalg
 from baxter_interface import gripper as robot_gripper
 import copy
+from AI import search
 
 unit_len = 0.1
 
@@ -20,17 +21,7 @@ left_gripper.calibrate()
 def main():
 
 	global step
-	mov = [['empty', (0, 2), (2, 2)], ['empty', (2, 2), (2, 0)], 
-	['box1', (2, 0), (2, 2)], ['box1', (2, 2), (3, 2)], 
-	['empty', (3, 2), (3, 1)], 
-	['box2', (3, 1), (2, 1)], ['box2', (2, 1), (2, 2)], ['box2', (2, 2), (1, 2)], ['box2', (1, 2), (1, 3)], ['empty', (1, 3), (1, 3)]]
-	"""
-	mov = [['empty',(3,3),(2,0)],['empty',(2,0),(2,1)],['box1',(2,1),(2,2)],['box1',(2,2),(3,2)],['empty',(3,2),(3,3)],
-			['box2',(3,3),(2,3)],['box2',(2,3),(1,3)],['empty',(1,3),(1,2)]]
-	# mov = [['empty',(1,2),(3,3)],['box1',(3,3),(0,3)],['empty',(0,3),(1,3)],['empty',(1,3),(1,0)],['empty',(1,0),(2,0)],
-	# 		['box2',(2,0),(1,0)],['box2',(1,0),(1,3)],['box2',(1,3),(2,3)],['empty',(2,3),(0,3)],['box1',(0,3),(1,3)],
-	# 		['box1',(1,3),(1,0)],['box1',(1,0),(3,0)],['box1',(3,0),(3,1)],['empty',(3,1),(3,2)]]
-	"""
+	mov = search()
 	for i in range(len(mov)):
 	
 		if i == 0:

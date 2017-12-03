@@ -86,7 +86,7 @@ def callback(message):
         		return 3*unit_length
         	else:
         		return "cube out of the map"
-        print unit_length
+        # print unit_length
 
         for i in range(12):
             for j in range(3):
@@ -121,12 +121,13 @@ def callback(message):
         game_map[des2[1]][des2[0]] = ".2"
         game_map[man[1]][man[0]] = "@"
         data = os.path.getsize('map.txt')
-        #print data
+        print data
         # print game_map
         # if data != 0:
-        f = open('map.txt','r+')
-        f.truncate()
-        f.close()
+        #     f = open('map.txt','r+')
+        #     f.truncate()
+        #     f.close()
+        
         for p in range(4):
         	for q in range(4):
         		if data == 0:

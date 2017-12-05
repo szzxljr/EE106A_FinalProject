@@ -140,7 +140,7 @@ def move_down_small(x):
 	move_action(go_pos)
 def move_down(x):
 	go_pos = x
-	go_pos[2] -= 0.05
+	go_pos[2] -= 0.065
 	move_action(go_pos)
 def move_up_small(x):
 	go_pos = x
@@ -148,7 +148,7 @@ def move_up_small(x):
 	move_action(go_pos)
 def move_up(x):
 	go_pos = x
-	go_pos[2] += 0.05
+	go_pos[2] += 0.065
 	move_action(go_pos)
 
 def open_gripper():
@@ -159,9 +159,9 @@ def close_gripper():
 
 def transform(x,flag):
 	if flag == 1:
-		return [x[2][0]*unit_len,x[2][1]*unit_len-0.03,0.025,0.000, 1.000, 0.000, 0.036]
+		return [x[2][0]*unit_len,x[2][1]*unit_len-0.035,0.025,0.000, 1.000, 0.000, 0.036]
 	else:
-		return [x[2][0]*unit_len,x[2][1]*unit_len-0.03,0.06,0.000, 1.000, 0.000, 0.036]
+		return [x[2][0]*unit_len,x[2][1]*unit_len-0.035,0.06,0.000, 1.000, 0.000, 0.036]
 
 
 if __name__ == '__main__':

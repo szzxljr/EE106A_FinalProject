@@ -269,6 +269,8 @@ def findwholeall():
         end = ['empty', ps[-1][2], ps[-1][2]]
         ps.append(end)
         paths = ps
+    start = ps[0]
+    ps.insert(0, [start[0], start[1], start[1]])
     return ps
 
 def split_moves(moves, factor=3):
@@ -376,4 +378,4 @@ def findstart2():
     b[pd[0]][pd[1]] = BOX2
     return ps
 """
-#print search()
+# print search()

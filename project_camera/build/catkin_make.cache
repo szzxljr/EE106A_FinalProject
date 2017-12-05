@@ -1,0 +1,2 @@
+ar_track_alvar:chatter:chatter2:lab4_cam
+-DCATKIN_DEVEL_PREFIX=/home/cc/ee106a/fa17/class/ee106a-act/ros_workspaces/project_camera/devel -DCMAKE_INSTALL_PREFIX=/home/cc/ee106a/fa17/class/ee106a-act/ros_workspaces/project_camera/install -G Unix Makefiles

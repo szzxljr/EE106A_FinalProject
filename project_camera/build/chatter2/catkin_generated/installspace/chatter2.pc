@@ -1,0 +1,8 @@
+prefix=/home/cc/ee106a/fa17/class/ee106a-act/ros_workspaces/project_camera/install
+
+Name: chatter2
+Description: Description of chatter2
+Version: 0.0.0
+Cflags: -I/home/cc/ee106a/fa17/class/ee106a-act/ros_workspaces/project_camera/install/include
+Libs: -L/home/cc/ee106a/fa17/class/ee106a-act/ros_workspaces/project_camera/install/lib -lchatter2
+Requires: ar_track_alvar ar_track_alvar_msgs geometry_msgs roscpp rospy std_msgs

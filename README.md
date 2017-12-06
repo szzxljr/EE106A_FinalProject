@@ -1,4 +1,15 @@
 # EE106A_Sokuban_Baxter
-UC Berkeley Fall 2017 EECS106A Introdunction to Robotics 
-Lab @author Haofan Wang, Jingjun Liu, Jiarong Li
-Finial Project @author Haofan Wang, Jingjun Liu, Jiarong Li, Neal Sanghvi
+Sokoban playing with Baxter
+
+This is a robot project written in Python with ROS packages, under collaboration of the following members:
+```
+Haofan Wang (haofanwang@berkeley.edu)
+Jiarong Li (jiarongli@berkeley.edu)
+Jingjun Liu (liujingjun@berkeley.edu)
+Neal Sanghvi (neal.sanghvi@berkeley.edu)
+
+```
+
+Note: The robot uses Baxter-frame hardware provided by EE106A course staff at UC Berkeley. The code and video of this project will be released at the end of this semester.
+
+Play fun!Go Bear!
